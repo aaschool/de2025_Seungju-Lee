@@ -42,7 +42,7 @@ For full hardware integration (optional during simulation phase):
 ### Backend (Node.js):
 - express – web server
 - ws – WebSocket communication
-- midi – optional, native MIDI control (can be skipped during simulation)
+- midi
 
 ### Frontend (served from /public):
 - p5.js
