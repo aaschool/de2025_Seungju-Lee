@@ -59,7 +59,7 @@ For full hardware integration (optional during simulation phase):
 2. Node.js Backend  
    - Receives real-time sensor data from Arduino or a simulator  
    - Logs and forwards data to the frontend via WebSocket  
-   - (Optional) Sends MIDI messages to sound software to create reactive audio
+   - Sends MIDI messages to sound software to create reactive audio
 
 3. Frontend Interface (p5.js)  
    - Displays visual feedback of proximity and touch data  
