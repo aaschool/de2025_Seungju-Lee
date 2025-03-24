@@ -1,7 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>Garden Soundscape System</title>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.11.2/lib/p5.min.js"></script>
+  <script src="https://unpkg.com/p5.touchgui@0.5.2/lib/p5.touchgui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8" />
+
+  </head>
+  <body>
+    <main>
+    </main>
+    <script src="sketch.js"></script>
+  </body>
+</html>
 let state = "home";
 let gui;
 
 let leafBtn, musicBtn, lightBtn, chartBtn, backBtn;
+
 let sliderObjs = [];
 let soundMixers = [];
 let lightSliders = [];
@@ -12,6 +31,7 @@ function setup() {
   createCanvas(400, 700);
   gui = createGui();
 
+  // Menu buttons
   leafBtn = createButton('', 160, 160, 80, 80);
   musicBtn = createButton('', 80, 300, 80, 80);
   lightBtn = createButton('', 240, 300, 80, 80);
@@ -56,9 +76,9 @@ function drawHome() {
 
   textSize(16);
   fill(0);
-  text("Garden Soundscape System", 20, 30);
+  text("Garden Soundscape System", 110, 30);
   textSize(12);
-  text("System Configurator", 20, 50);
+  text("System Configurator", 65, 50);
 
   textAlign(CENTER, CENTER);
   textSize(36);
@@ -86,20 +106,17 @@ function drawSubPage(page) {
   if (page === "plants") drawPlantPage();
   else if (page === "sounds") drawSoundPage();
   else if (page === "lighting") drawLightingPage();
-  else if (colorPicker) {
-  colorPicker.hide();
-}
   else drawGenericPage(page);
 
   if (backBtn.isPressed) {
-    // Remove any GUI elements specific to a page
- sliderObjs.forEach(s => s.visible = false);
-soundMixers.forEach(track => {
-  track.sliders.forEach(s => s.visible = false);
-  track.toggle.visible = false;
-});
-lightSliders.forEach(s => s.visible = false);
-animationSliders.forEach(s => s.visible = false);
+    sliderObjs.forEach(s => s.visible = false);
+    soundMixers.forEach(track => {
+      track.sliders.forEach(s => s.visible = false);
+      track.toggle.visible = false;
+    });
+    lightSliders.forEach(s => s.visible = false);
+    animationSliders.forEach(s => s.visible = false);
+    if (colorPicker) colorPicker.hide();
 
     sliderObjs = [];
     soundMixers = [];
@@ -114,7 +131,7 @@ function drawPlantPage() {
   textAlign(CENTER, CENTER);
   textSize(18);
   fill(0);
-  text("🌿 Plant Proximity Sensor", width / 2, 30);
+  text("🌿 Plant Proximity Sensor", width / 3.5, 30);
 
   if (sliderObjs.length === 0) {
     for (let i = 0; i < 4; i++) {
@@ -146,7 +163,7 @@ function drawSoundPage() {
   textAlign(CENTER, CENTER);
   textSize(18);
   fill(0);
-  text("🎵 Sound Mixer", width / 2, 30);
+  text("🎵 Sound Mixer", width / 5.5, 30);
 
   drawProximityMap();
 
@@ -174,10 +191,11 @@ function drawLightingPage() {
   textAlign(CENTER, CENTER);
   textSize(18);
   fill(0);
-  text("💡 Light Mixer", width / 2, 30);
+  text("💡 Light Mixer", width / 6, 30);
 
   drawProximityMap();
 
+  // Real HTML color picker
   if (!colorPicker) {
     colorPicker = createColorPicker('#ffcc00');
     colorPicker.position(120, 160);
@@ -189,7 +207,6 @@ function drawLightingPage() {
   noStroke();
   rect(300, 160, 40, 40, 8);
 
-  // Brightness + animation sliders
   if (lightSliders.length === 0) {
     let brightnessSlider = createSlider("Brightness", 300, 220, 20, 140, 0, 100);
     lightSliders.push(brightnessSlider);
@@ -209,6 +226,7 @@ function drawLightingPage() {
   text("Comp 2", 100, 390);
   ellipse(60, 420, 10, 10);
 }
+
 function drawProximityMap() {
   push();
   translate(width / 2, 90);
