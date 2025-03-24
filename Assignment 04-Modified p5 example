@@ -1,1 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Garden Soundscape System</title>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.11.2/lib/p5.min.js"></script>
+  <script src="https://unpkg.com/p5.touchgui@0.5.2/lib/p5.touchgui.js"></script>
+  <meta charset="utf-8">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+<script>
+  let gui;
+  let state = "home";
 
+  let leafBtn, musicBtn, lightBtn, chartBtn, backBtn;
+  let icons = {};
+
+  function preload() {
+    icons.leaf = loadImage("https://cdn-icons-png.flaticon.com/512/2909/2909763.png");
+    icons.music = loadImage("https://cdn-icons-png.flaticon.com/512/727/727245.png");
+    icons.light = loadImage("https://cdn-icons-png.flaticon.com/512/833/833472.png");
+    icons.chart = loadImage("https://cdn-icons-png.flaticon.com/512/1828/1828817.png");
+  }
+
+  function setup() {
+    createCanvas(400, 700);
+    gui = createGui();
+
+    // Home buttons
+    leafBtn = createButton('', 160, 160, 80, 80);
+    musicBtn = createButton('', 80, 300, 80, 80);
+    lightBtn = createButton('', 240, 300, 80, 80);
+    chartBtn = createButton('', 160, 400, 80, 80);
+
+    // Back button
+    backBtn = createButton('← Back to Home', 120, 600, 160, 40);
+    backBtn.setStyle({
+      fillBg: color(220),
+      textSize: 14,
+      rounding: 10
+    });
+
+    [leafBtn, musicBtn, lightBtn, chartBtn].forEach(btn => {
+      btn.setStyle({
+        fillBg: color(255),
+        rounding: 50,
+        strokeWeight: 0
+      });
+    });
+
+    // Start with backBtn hidden
+    backBtn.visible = false;
+  }
+
+  function draw() {
+    background(255);
+    drawGui();
+
+    if (state === "home") {
+      drawHome();
+    } else {
+      drawSubPage(state);
+    }
+  }
+
+  function drawHome() {
+    backBtn.visible = false;
+
+    leafBtn.visible = true;
+    musicBtn.visible = true;
+    lightBtn.visible = true;
+    chartBtn.visible = true;
+
+    textSize(16);
+    fill(0);
+    text("Garden Soundscape System", 20, 30);
+    textSize(12);
+    text("System Configurator", 20, 50);
+
+    imageMode(CENTER);
+    image(icons.leaf, 200, 200, 40, 40);
+    image(icons.music, 120, 340, 40, 40);
+    image(icons.light, 280, 340, 40, 40);
+    image(icons.chart, 200, 460, 40, 40);
+
+    if (leafBtn.isPressed) state = "plants";
+    if (musicBtn.isPressed) state = "sounds";
+    if (lightBtn.isPressed) state = "lighting";
+    if (chartBtn.isPressed) state = "data";
+  }
+
+  function drawSubPage(page) {
+    leafBtn.visible = false;
+    musicBtn.visible = false;
+    lightBtn.visible = false;
+    chartBtn.visible = false;
+
+    backBtn.visible = true;
+
+    textAlign(CENTER, CENTER);
+    textSize(24);
+    fill(0);
+    let title = "";
+    if (page === "plants") title = "🌿 Plants Configuration";
+    if (page === "sounds") title = "🎵 Sounds Configuration";
+    if (page === "lighting") title = "💡 Lighting Configuration";
+    if (page === "data") title = "📊 Data Dashboard";
+    text(title, width / 2, 100);
+
+    textSize(14);
+    text("This is the " + page + " page.", width / 2, 140);
+
+    if (backBtn.isPressed) state = "home";
+  }
+</script>
+</body>
+</html>
