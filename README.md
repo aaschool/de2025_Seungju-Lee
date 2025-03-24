@@ -12,7 +12,6 @@ Designed as both a user interface and a control infrastructure, the system integ
 - An Arduino (ESP32) for sensing proximity and touch
 - LED lighting and sound synthesis software (via MIDI) for environmental response
 
-This project demonstrates the merging of physical computing, sound design, and spatial interaction for digital ecologies and responsive landscapes.
 
 ## Project Structure
 
