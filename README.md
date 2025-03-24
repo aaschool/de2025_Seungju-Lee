@@ -44,12 +44,6 @@ For full hardware integration (optional during simulation phase):
 - ws – WebSocket communication
 - midi – optional, native MIDI control (can be skipped during simulation)
 
-Install with:
-
-```
-npm install express ws
-```
-
 ### Frontend (served from /public):
 - p5.js
 - p5.sound (optional for future sound feedback)
